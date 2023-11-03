@@ -1,5 +1,6 @@
 .title {
   color: crimson;
+  text-align: center;
   font-size: 3rem;
   padding: 1rem;
 }
@@ -45,7 +46,7 @@
 .book {
   translate: -25%;
   width: 100%;
-  height: 65vh;
+  height: 85vh;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -72,7 +73,13 @@
   background-color: cornflowerblue;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-  transition: all 5000ms;
+  transition: all 3000ms;
+}
+
+.square {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
 }
 
 .page,
@@ -84,11 +91,14 @@
   background-color: whitesmoke;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
-  z-index: 15;
   transform-origin: left center;
 }
 
 .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   width: 49%;
   height: 70%;
@@ -101,26 +111,26 @@
 }
 
 .page:nth-child(2) {
-  transition: rotate 2400ms;
+  transition: rotate 1800ms;
 }
 .page:nth-child(3) {
-  transition: rotate 2800ms;
+  transition: rotate 2100ms;
 }
 .page:nth-child(4) {
-  transition: rotate 3200ms;
+  transition: rotate 2400ms;
 }
 .page:nth-child(5) {
-  transition: rotate 3600ms;
+  transition: rotate 2700ms;
 }
 .page:nth-child(6) {
-  transition: rotate 4000ms;
+  transition: rotate 3000ms;
 }
 
 
 .book:hover .cover {
   rotate: y -180deg;
   z-index: 10;
-  transition-duration: 2000ms;
+  transition-duration: 1300ms;
 }
 
 .book:hover {
@@ -146,4 +156,34 @@
 
 .heroPage {
     border: 1px black solid;
+    display: grid;
+    z-index: 14;
+  }
+
+.statsContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.statLabel {
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .75rem;
+  width: 25px;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  color: black;
+  font-size: .75rem;
+}
+
+
+  @media screen and (min-width: 750px) {
+    .book {
+      width: 700px;
+    }
   }
