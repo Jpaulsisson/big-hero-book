@@ -1,9 +1,9 @@
 'use client';
-import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 import styles from './page.module.css';
-import { ChangeEvent, useState } from 'react';
-import { Bangers } from 'next/font/google';
+import React, { ChangeEvent, useState } from 'react';
+import { Bangers, Comic_Neue } from 'next/font/google';
 import { characters } from './characterIDs.js';
 
 const HeroFont = Bangers({
@@ -11,27 +11,44 @@ const HeroFont = Bangers({
   subsets: ['latin'],
 });
 
-const characterNames: string[] = [];
-const getNames = characters.map((character) => {
-  characterNames.push(character.name);
+const WritingFont = Comic_Neue({
+  weight: '300',
+  subsets: ['latin'],
+  style: ['italic', 'normal'],
 });
 
-
 export default function Home() {
-  const router = useRouter();
 
+  const [closed, setClosed] = useState(true);
+  const [currentSearch, setCurrentSearch] = useState('');
+  const [currentCharacter, setCurrentCharacter] = useState({});
 
+  const filteredCharacters = characters.filter((character) =>
+    character.name.toLowerCase().includes(currentSearch?.toLowerCase())
+  );
 
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
-    router.push(`?hero=${e.target.value}`);
+    if (closed === false) setClosed(true);
+    setCurrentSearch(e.target.value);
+  }
+
+  async function handleClick(id: string) {
+    const response = await fetch(`/api/hero?id=${id}`)
+    const data = await response.json();
+    console.log(data);
+    setCurrentCharacter(data);
+    setClosed(false);
   }
 
   return (
     <main>
+      {/* Title */}
       <h1 className={[styles.title, HeroFont.className].join(' ')}>
         Super Hero Big Book
       </h1>
-      <form className={styles.form}>
+
+      {/* Search */}
+      <div className={styles.searchContainer}>
         <input
           type="text"
           name="hero"
@@ -40,104 +57,66 @@ export default function Home() {
           onChange={handleSearchChange}
           placeholder="Search by name"
         />
-        <button className={styles.searchButton}>Search Supes</button>
-      </form>
-      <div className={styles.book}>
-        <div className={styles.cover}>The Cover!!!</div>
-        <div className={styles.page}></div>
-        <div className={styles.page}></div>
-        <div className={styles.page}></div>
-        <div className={styles.page}></div>
-        <div className={styles.page}>
-          <span className={styles.square}></span>
-        </div>
-        <div className={styles.heroPage}>
-          <Image
-            src="https://source.unsplash.com/random"
-            alt="super hero"
-            width={100}
-            height={100}
-            className={styles.heroImage}
-          />
-          <h2>Spider-man</h2>
+      </div>
 
-          {/* stats */}
-          <div className={styles.statsContainer}>
-            {/* Intelligence */}
-            <label className={styles.statLabel}>
-              Int
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 40% 100%),conic-gradient(#11378b 0deg calc(3.6 * ${75}deg), beige calc(3.6 * ${75}deg) 360deg)`,
-                }}
-              ></div>
-            </label>
-
-            {/* Strength */}
-            <label className={styles.statLabel}>
-              Str
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 40% 100%),conic-gradient(#741b1b 0deg calc(3.6 * ${55}deg), beige calc(3.6 * ${55}deg) 360deg)`,
-                }}
-              ></div>
-            </label>
-
-            {/* Speed */}
-            <label className={styles.statLabel}>
-              Spd
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 40% 100%),conic-gradient(#d5bb29 0deg calc(3.6 * ${63}deg), beige calc(3.6 * ${63}deg) 360deg)`,
-                }}
-              ></div>
-            </label>
-
-            {/* Durability */}
-            <label className={styles.statLabel}>
-              Dur
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 40% 100%),conic-gradient(#46525b 0deg calc(3.6 * ${70}deg), beige calc(3.6 * ${70}deg) 360deg)`,
-                }}
-              ></div>
-            </label>
-
-            {/* Power */}
-            <label className={styles.statLabel}>
-              Pwr
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 40% 100%),conic-gradient(#1a4222 0deg calc(3.6 * ${66}deg), beige calc(3.6 * ${66}deg) 360deg)`,
-                }}
-              >
-                66
+      {/* Book */}
+      <div className={styles.bookContainer}>
+        <div className={styles.heroList}>
+          <h2 className={[styles.listTitle, HeroFont.className].join(' ')}>
+            Choose One!!!
+          </h2>
+          <div className={styles.resultsList}>
+            {filteredCharacters.length === 0 ? 
+              <div className={[styles.noCharactersAlert, WritingFont.className].join(' ')}>
+                <p>No characters by that name in this book. Try your local comic book store, bud. Good luck!</p>
               </div>
-            </label>
-
-            {/* Combat */}
-            <label className={styles.statLabel}>
-              Com
-              <div
-                className={styles.stat}
-                style={{
-                  background: `radial-gradient(circle at center, beige 0 40%, transparent 42% 100%),conic-gradient(#421a42 0deg calc(3.6 * ${70}deg), beige calc(3.6 * ${70}deg) 360deg)`,
-                }}
-              ></div>
-            </label>
+              :
+              <>
+              {filteredCharacters.map((character, index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleClick(String(character.id))}
+                  className={styles.selectButton}
+                >
+                  {character.name}
+                </button>
+              );
+            })}
+            </>
+            }
+            
           </div>
-          {/* Bio */}
-          <p>Name</p>
-          <p>Hometown</p>
-          <p>First Appearance</p>
-          <p>Publisher</p>
-          <p>Good guy / bad guy</p>
         </div>
+        <div className={closed ? styles.coverClosed : styles.coverOpen}>
+          The Cover!!!
+        </div>
+        
+        <div className={closed ? styles.pageClosed : styles.pageOpen}>
+          <div className={styles.fauxPageHeader}>
+            <div className={styles.fauxImageOutline}></div>
+            <div className={styles.headerFillerLine}></div>
+            <div className={styles.headerFillerLine}></div>
+          </div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+        </div>
+        <div className={closed ? styles.pageClosed : styles.pageOpen}>
+          <div className={styles.fauxPageHeader}>
+            <div className={styles.fauxImageOutline}></div>
+            <div className={styles.headerFillerLine}></div>
+            <div className={styles.headerFillerLine}></div>
+          </div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+          <div className={styles.fillerLine}></div>
+        </div>
+
+        <div className={styles.heroPageLeft}></div>
+        <div className={styles.heroPageRight}></div>
         <div className={styles.backCover}>Back Cover!!!</div>
       </div>
     </main>

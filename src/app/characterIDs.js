@@ -730,8 +730,15 @@ export const characters = [
   { id: 729, name: 'Yoda'},
   { id: 730, name: 'Zatanna'},
   { id: 731, name: 'Zoom'},
-  ]
+  ];
+
+export const characterNames = Array.from(characters, (character) => character.name.toLowerCase());
+
+  // const getNames = characters.map((character) => {
+  //   characterNames.push(character.name.toLowerCase());
+  // });
 
 module.exports = {
-  characters
+  characters,
+  characterNames
 }
