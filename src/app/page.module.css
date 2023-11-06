@@ -119,7 +119,6 @@
 .coverClosed {
   background: radial-gradient(ellipse at center, rgb(88, 115, 124), #32405b);
   position: absolute;
-  
   z-index: 1;
 }
 
@@ -172,6 +171,46 @@
   transition-duration: 3500ms;
 }
 
+.heroPageLeftClosed,
+.heroPageLeftOpen {
+  position: absolute;
+  height: 97%;
+  width: 48%;
+  translate: -103%;
+  background-color: antiquewhite;
+  border-radius: 2px 7px 7px 2px;
+  display: grid;
+  justify-items: center;
+  padding: 1rem;
+  box-shadow: 1px 1px 3px #333;
+  transform-origin: center right;
+  z-index: 1;
+}
+
+.heroPageLeftClosed {
+  rotate: y 180deg;
+  transition-duration: 1600ms;
+  z-index: 0;
+}
+
+.heroPageLeftOpen {
+  rotate: y 0deg;
+  transition-duration: 3500ms;
+  z-index: 2;
+}
+
+.noImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fallbackImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 /* FAKE CONTENT FOR FAKE PAGES */
 

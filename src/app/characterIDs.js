@@ -734,10 +734,6 @@ export const characters = [
 
 export const characterNames = Array.from(characters, (character) => character.name.toLowerCase());
 
-  // const getNames = characters.map((character) => {
-  //   characterNames.push(character.name.toLowerCase());
-  // });
-
 module.exports = {
   characters,
   characterNames
