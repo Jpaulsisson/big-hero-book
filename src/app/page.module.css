@@ -286,17 +286,17 @@
 
 .statsContainer {
   color: black;
-  width: 70%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
 }
 
 .stat {
   border-radius: 50%;
-  width: 100%;
+  width: 70%;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -308,11 +308,12 @@
 }
 
 .closeButton {
-  all: unset;
   color: antiquewhite;
+  width: 75%;
+  height: min-content;
   background-color: #222;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 8px;
 }
 
 /* FAKE CONTENT FOR FAKE PAGES */
@@ -383,29 +384,16 @@
   border: 2px solid black;
   grid-column: 1 / -1;
 }
-
-.characterNameLabel {
-  font-size: .75rem;
-  font-style: italic;
 }
 
-.characterName {
-  font-size: 1rem;
-  grid-column: 1 / span 2;
-  grid-row: 2 / 3;
-}
+@media screen and (orientation: landscape) {
+  .statsContainer {
+    width: 100%;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-.characterTrueNameLabel {
-  font-size: .75rem;
-  font-style: italic;
-}
-
-.characterTrueName {
-  font-size: 1rem;
-  grid-column: 3 / -1;
-  grid-row: 2 / 3;
-}
-
-
-
+  .stat {
+    width: 50%;
+  }
 }
