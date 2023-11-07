@@ -299,7 +299,7 @@ export default function Home() {
             <button onClick={() => setClosed(true)} className={[styles.closeButton, WritingFont.className].join(' ')}>Close</button>
 
         </div>
-        <div className={styles.backCover}>Back Cover!!!</div>
+        <div className={styles.backCover}></div>
       </div>
     </main>
   );
