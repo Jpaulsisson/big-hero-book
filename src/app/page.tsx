@@ -6,6 +6,12 @@ import React, { ChangeEvent, useState } from 'react';
 import { Bangers, Comic_Neue } from 'next/font/google';
 import { characters } from './characterIDs.js';
 import FallbackImage from '/public/fallback.png'
+import Int from '/public/brain.svg';
+import Str from '/public/strength.svg';
+import Spd from '/public/lightning.svg';
+import Dur from '/public/shield.svg';
+import Pwr from '/public/power.svg';
+import Cmbt from '/public/combat.svg';
 
 
 const HeroFont = Bangers({
@@ -68,53 +74,53 @@ export default function Home() {
   const [imageError, setImageError] = useState(false);
   const [characterData, setCharacterData] = useState<TCurrentCharacter>(
     {
-      "response": "success",
-      "id": 233,
-      "name": "Dr Manhattan",
+      "response": "",
+      "id": 0,
+      "name": "",
       "powerstats": {
-          "intelligence": 88,
-          "strength": 100,
-          "speed": 42,
-          "durability": 100,
-          "power": 100,
-          "combat": 42
+          "intelligence": 0,
+          "strength": 0,
+          "speed": 0,
+          "durability": 0,
+          "power": 0,
+          "combat": 0,
       },
       "biography": {
-          "full-name": "Jonathan Osterman",
-          "alter-egos": "No alter egos found.",
+          "full-name": "",
+          "alter-egos": ".",
           "aliases": [
-              "Jon Osterman",
-              "Doctor Manhattan"
+              "",
+              ""
           ],
-          "place-of-birth": "-",
-          "first-appearance": "Watchmen #1 (September, 1986)",
-          "publisher": "DC Comics",
-          "alignment": "good"
+          "place-of-birth": "",
+          "first-appearance": "",
+          "publisher": "",
+          "alignment": ""
       },
       "appearance": {
-          "gender": "Male",
-          "race": "Human / Cosmic",
+          "gender": "",
+          "race": "",
           "height": [
-              "-",
-              "0 cm"
+              "",
+              ""
           ],
           "weight": [
-              "- lb",
-              "0 kg"
+              "",
+              ""
           ],
-          "eye-color": "White",
-          "hair-color": "No Hair"
+          "eye-color": "",
+          "hair-color": ""
       },
       "work": {
-          "occupation": "Scientist",
-          "base": "New York City; formerly Mars"
+          "occupation": "",
+          "base": ""
       },
       "connections": {
-          "group-affiliation": "Watchmen, Crimebusters",
-          "relatives": "-"
+          "group-affiliation": "",
+          "relatives": ""
       },
       "image": {
-          "url": "https://www.superherodb.com/pictures2/portraits/10/100/884.jpg"
+          "url": FallbackImage
       }
   });
 
@@ -222,16 +228,17 @@ export default function Home() {
           <div className={styles.fillerLine}></div>
         </div>
 
-        <div className={closed ? styles.heroPageLeftClosed : styles.heroPageLeftOpen}>
+        <div className={closed ? [styles.heroPageLeftClosed, WritingFont.className].join(' ') : [styles.heroPageLeftOpen, WritingFont.className].join(' ')}>
             {!imageError &&
-              <Image
-                priority={true}
-                src={characterData.image.url} 
-                alt={characterData.name} 
-                width={100} 
-                height={100}
-                onError={() => setImageError(true)}
-              />
+                <Image
+                  priority={true}
+                  src={characterData.image.url}
+                  alt={characterData.name}
+                  className={styles.characterImage}
+                  width={100}
+                  height={100}
+                  onError={() => setImageError(true)}
+                />
               }
               {imageError &&
                 <div className={styles.noImage}>
@@ -241,10 +248,51 @@ export default function Home() {
                   </div>
                 </div>
               }
+          <h2 className={styles.characterInfo}><span className={styles.characterInfoLabel}>Supe name:</span> {characterData.name}</h2>
+          <h2 className={styles.characterInfo}><span className={styles.characterInfoLabel}>Birth name:</span> {characterData.biography['full-name']}</h2>
+
+          <h2 className={styles.characterInfo}><span className={styles.characterInfoLabel}>Birth place:</span> {characterData.biography['place-of-birth'] === '-' ? 'unknown' : `${characterData.biography['place-of-birth']}`}</h2>
+          <h2 className={styles.characterInfo}><span className={styles.characterInfoLabel}>Publisher:</span> {characterData.biography.publisher}</h2>
+          {characterData.biography.alignment === 'good' ?
+          <h2  style={{ color: 'green'}} className={styles.characterInfo}><span style={{ color: 'black'}} className={styles.characterInfoLabel}>Good/Bad:</span> {characterData.biography.alignment.toUpperCase()}</h2>
+          :
+          <h2 style={{ color: 'crimson'}} className={styles.characterInfo}><span style={{ color: 'black'}} className={styles.characterInfoLabel}>Good/Bad:</span> {characterData.biography.alignment.toUpperCase()}</h2>}
           
-          <h2>{characterData.name}</h2>
         </div>
-        <div className={styles.heroPageRight}></div>
+
+
+
+
+        <div className={styles.heroPageRight}>
+          <h2 className={[HeroFont.className, styles.statsHeader].join(' ')}>STATS</h2>
+          <div className={styles.statsContainer}>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+            <p className={styles.stat} style={{ 
+              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+            </p>
+          
+          </div>
+        </div>
         <div className={styles.backCover}>Back Cover!!!</div>
       </div>
     </main>

@@ -111,7 +111,7 @@
 
 .backCover {
   position: relative;
-  background-color: aquamarine;
+  background: radial-gradient(ellipse at center, rgb(88, 115, 124), #32405b);
   z-index: -2;
 }
 
@@ -171,6 +171,10 @@
   transition-duration: 3500ms;
 }
 
+/* CONTENT PAGES */
+
+/* LEFT CONTENT PAGE */
+
 .heroPageLeftClosed,
 .heroPageLeftOpen {
   position: absolute;
@@ -181,7 +185,7 @@
   border-radius: 2px 7px 7px 2px;
   display: grid;
   justify-items: center;
-  padding: 1rem;
+  padding: .5rem;
   box-shadow: 1px 1px 3px #333;
   transform-origin: center right;
   z-index: 1;
@@ -197,8 +201,15 @@
   rotate: y 0deg;
   transition-duration: 3500ms;
   z-index: 2;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
+/* LEFT PAGE ACTUAL CONTENT */
+
+/* IF NO IMAGE */
 .noImage {
   display: flex;
   align-items: center;
@@ -210,6 +221,62 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.characterImage {
+  border: 2px solid black;
+  
+}
+
+.characterInfoLabel {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.characterInfo {
+  font-size: clamp(1rem, 2.75vh, 1.5rem);
+}
+
+/* RIGHT CONTENT PAGE */
+
+.heroPageRight {
+  position: absolute;
+  height: 97%;
+  width: 48%;
+  translate: -3%;
+  background-color: antiquewhite;
+  border-radius: 2px 7px 7px 2px;
+  display: grid;
+  justify-items: center;
+  padding: 1rem;
+  box-shadow: 1px 1px 3px #333;
+  transform-origin: center left;
+  z-index: -1;
+}
+
+/* STATS */
+
+.statsHeader {
+  font-size: 3rem;
+  color: crimson;
+}
+
+.statsContainer {
+  color: black;
+}
+
+.stat {
+  background: radial-gradient(circle at center, red 0 50%, blue 50% 100%);
+  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statIcon {
+  width: 70%;
 }
 
 /* FAKE CONTENT FOR FAKE PAGES */
@@ -259,24 +326,47 @@
 
 
 
+@media screen and (max-width: 768px) {
+  /* LEFT PAGE ACTUAL CONTENT */
 
-.statsContainer {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.statLabel {
-  text-align: center;
-}
-
-.stat {
+/* IF NO IMAGE */
+.noImage {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: .75rem;
-  width: 25px;
-  border-radius: 50%;
-  aspect-ratio: 1;
-  color: black;
+}
+
+.fallbackImageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.characterImage {
+  border: 2px solid black;
+  grid-column: 1 / -1;
+}
+
+.characterNameLabel {
   font-size: .75rem;
+  font-style: italic;
+}
+
+.characterName {
+  font-size: 1rem;
+  grid-column: 1 / span 2;
+  grid-row: 2 / 3;
+}
+
+.characterTrueNameLabel {
+  font-size: .75rem;
+  font-style: italic;
+}
+
+.characterTrueName {
+  font-size: 1rem;
+  grid-column: 3 / -1;
+  grid-row: 2 / 3;
+}
 }
