@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from 'next/image';
 import styles from './page.module.css';
 import React, { ChangeEvent, useState } from 'react';
-import { Bangers, Comic_Neue } from 'next/font/google';
+import { Bangers, Cinzel, Comic_Neue } from 'next/font/google';
 import { characters } from './characterIDs.js';
 import FallbackImage from '/public/fallback.png'
 import Int from '/public/brain.svg';
@@ -24,6 +24,11 @@ const WritingFont = Comic_Neue({
   subsets: ['latin'],
   style: ['italic', 'normal'],
 });
+
+const BookTitleFont = Cinzel({
+  weight: '400',
+  subsets: ['latin']
+})
 
 type TCurrentCharacter = {
   "response": string,
@@ -172,7 +177,7 @@ export default function Home() {
       </div>  
 
       {/* Book */}
-      <div className={styles.bookContainer}>
+      <div className={closed ? styles.bookContainerClosed : styles.bookContainerOpen}>
         
         <div className={styles.heroList}>
           <h2 className={[styles.listTitle, HeroFont.className].join(' ')}>
@@ -201,8 +206,8 @@ export default function Home() {
             
           </div>
         </div>
-        <div className={closed ? styles.coverClosed : styles.coverOpen}>
-          The Cover!!!
+        <div className={closed ? [styles.coverClosed, BookTitleFont.className].join(' ') : [styles.coverOpen, BookTitleFont.className].join(' ')}>
+          <h2>The Big Book of Super Heroes and Villains</h2>
         </div>
         
         <div className={closed ? styles.pageClosed : styles.pageOpen}>
@@ -267,31 +272,32 @@ export default function Home() {
           <h2 className={[HeroFont.className, styles.statsHeader].join(' ')}>STATS</h2>
           <div className={styles.statsContainer}>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient(navy 0 calc(${characterData.powerstats.intelligence} * 3.6deg), antiquewhite calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
+              <Image src={Int} alt='intelligence' width={45} height={45}  className={styles.statIcon}/>
             </p>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient(crimson 0 calc(${characterData.powerstats.strength} * 3.6deg), antiquewhite calc(${characterData.powerstats.strength} * 3.6deg) 360deg) `}}>
+              <Image src={Str} alt='strength' width={45} height={45}  className={styles.statIcon}/>
             </p>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient(goldenrod 0 calc(${characterData.powerstats.speed} * 3.6deg), antiquewhite calc(${characterData.powerstats.speed} * 3.6deg) 360deg) `}}>
+              <Image src={Spd} alt='speed' width={45} height={45}  className={styles.statIcon}/>
             </p>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient(darkgreen 0 calc(${characterData.powerstats.durability} * 3.6deg), antiquewhite calc(${characterData.powerstats.durability} * 3.6deg) 360deg) `}}>
+              <Image src={Dur} alt='durability' width={45} height={45}  className={styles.statIcon}/>
             </p>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient( #810134 0 calc(${characterData.powerstats.power} * 3.6deg), antiquewhite calc(${characterData.powerstats.power} * 3.6deg) 360deg) `}}>
+              <Image src={Pwr} alt='power' width={45} height={45}  className={styles.statIcon}/>
             </p>
             <p className={styles.stat} style={{ 
-              background: `radial-gradient(circle at center, beige 0% 40%, transparent 40% 100%), conic-gradient(green 0 calc(${characterData.powerstats.intelligence} * 3.6deg), beige calc(${characterData.powerstats.intelligence} * 3.6deg) 360deg) `}}>
-              <Image src={Int} alt='' width={40} height={40}  className={styles.statIcon}/>
+              background: `radial-gradient(circle at center, antiquewhite 0% 60%, transparent 60% 100%), conic-gradient(orangered 0 calc(${characterData.powerstats.combat} * 3.6deg), antiquewhite calc(${characterData.powerstats.combat} * 3.6deg) 360deg) `}}>
+              <Image src={Cmbt} alt='combat' width={45} height={45}  className={styles.statIcon}/>
             </p>
-          
           </div>
+            <button onClick={() => setClosed(true)} className={[styles.closeButton, WritingFont.className].join(' ')}>Close</button>
+
         </div>
         <div className={styles.backCover}>Back Cover!!!</div>
       </div>
